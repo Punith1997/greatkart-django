@@ -127,6 +127,10 @@ def order_complete(request):
     try:
         order=Order.objects.get(order_number=order_number, is_ordered=True)
         ordered_products=OrderProduct.objects.filter(order_id=order.id)
+        item_total_price={}
+        for item in ordered_products:
+            item_total_price[item.id]=(item.quantity*item.product_price)
+        # print(item_total_price)
         sub_total = 0
         for i in ordered_products:
             sub_total += i.product_price*i.quantity
@@ -138,6 +142,7 @@ def order_complete(request):
         'transID': payment.payment_id,
         'payment': payment,
         'sub_total':sub_total,
+        'item_total_price':item_total_price,
         }
         return render(request,'orders/order_complete.html', context)
     except (Payment.DoesNotExist, Order.DoesNotExist):

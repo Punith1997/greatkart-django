@@ -79,8 +79,16 @@
                                               </p>
                                               </td>
                                                 <td class="text-center">{{item.quantity}}</td>
+                                              <td class="text-center">{% for key, value in item_total_price.items %}
+                                                {% if item.id == key %}
+                                                      {{value}}
+                                                    {% endif %}
+                                                {% endfor %}</td>
 
-                                                <td class="text-center" id="item_total_price">{{item.product_price}}</td>
+                                                <!-- {% if item.id in item_total_price %}
+
+                                                <td class="text-center" id="item_total_price">{{item_total_price.}}</td>
+                                                {% endif %} -->
                                                 <!-- <script type="text/javascript">
                                                 (()=>{
                                                   var item_price = "{{item.product_price}}"
